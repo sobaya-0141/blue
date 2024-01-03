@@ -15,10 +15,13 @@ compose-compiler = "1.5.6"
 compose-plugin = "1.5.11"
 junit = "4.13.2"
 kotlin = "1.9.21"
-koin = "3.5.0"
+koin = "3.5.3"
+koinAnnotations = "1.3.0"
+koinKsp = "1.3.0"
 ksp = "1.9.21-1.0.15"
 ktorfit = "1.10.1"
-
+moko-network = "0.21.0"
+serialization = "1.6.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -38,7 +41,13 @@ compose-foundation = { module = "androidx.compose.foundation:foundation", versio
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin" }
+koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koinAnnotations" }
+koin-ksp = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koinKsp" }
+ktorfit-ksp = { module = "de.jensklingenberg.ktorfit:ktorfit-ksp", version.ref = "ktorfit" }
+ktorfit-lib = { module = "de.jensklingenberg.ktorfit:ktorfit-lib", version.ref = "ktorfit" }
+moko-network-generator = { module = "dev.icerock.moko:network-generator", version.ref = "moko-network" }
+moko-network = { module = "dev.icerock.moko:network", version.ref = "moko-network" }
+serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -47,3 +56,5 @@ jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktorfit = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit" }
+moko-network = { id = "dev.icerock.mobile.multiplatform-network-generator", version.ref = "moko-network" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
