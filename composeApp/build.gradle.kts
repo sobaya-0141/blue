@@ -1,10 +1,12 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.ir.backend.js.compile
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -15,7 +17,7 @@ kotlin {
             }
         }
     }
-    
+
     sourceSets {
         
         androidMain.dependencies {
@@ -29,7 +31,7 @@ kotlin {
             implementation(compose.ui)
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
-            implementation(projects.shared)
+            implementation(projects.repository)
         }
     }
 }
@@ -40,7 +42,12 @@ android {
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+
+    applicationVariants.forEach { variant ->
+        variant.sourceSets.forEach { sourceSet ->
+            sourceSet.kotlinDirectories += file("build/generated/ksp/${variant.name}/kotlin")
+        }
+    }
 
     defaultConfig {
         applicationId = "sobaya.app.blue"
@@ -65,6 +72,11 @@ android {
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
+        implementation(projects.repository)
+        implementation(libs.koin.android)
+        implementation(libs.koin.core)
+        implementation(libs.koin.annotations)
+        implementation(libs.koin.compose)
+        ksp(libs.koin.ksp)
     }
 }
-

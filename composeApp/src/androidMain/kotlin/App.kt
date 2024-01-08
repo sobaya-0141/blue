@@ -14,13 +14,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.koinInject
+import sobaya.app.blue.repository.KbskyRepository
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
     MaterialTheme {
+        val repository: KbskyRepository = koinInject()
         var showContent by remember { mutableStateOf(false) }
-        val greeting = remember { Greeting().greet() }
+
+        // repository.sendFeed("kbsky動作テスト")
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Button(onClick = { showContent = !showContent }) {
                 Text("Click me!")
@@ -28,7 +32,6 @@ fun App() {
             AnimatedVisibility(showContent) {
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                     Image(painterResource("compose-multiplatform.xml"), null)
-                    Text("Compose: $greeting")
                 }
             }
         }
