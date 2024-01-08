@@ -34,6 +34,8 @@ kotlin {
             implementation(libs.koin.annotations)
             implementation(libs.moko.network)
             implementation(libs.serialization)
+            implementation(libs.kbsky.core)
+            implementation(libs.kbsky.stream)
         }
     }
 }
@@ -51,21 +53,22 @@ dependencies {
     add("kspAndroid", libs.ktorfit.ksp)
     add("kspIosArm64", libs.ktorfit.ksp)
     add("kspIosX64", libs.ktorfit.ksp)
+    ksp(libs.koin.ksp)
 }
 
-mokoNetwork {
-    spec("anime") {
-        packageName = "sobaya.app.blue.repository"
-
-        val apiSourceDir = "${layout.buildDirectory.asFile.get()}/generated/moko-network/$name/src/main/kotlin/${packageName!!.replace(".", "/")}/apis"
-
-        inputSpec = file("src/commonMain/api-docs.json")
-
-        configureTask {
-            validateSpec = false
-            doLast {
-                delete(file(apiSourceDir))
-            }
-        }
-    }
-}
+// mokoNetwork {
+//     spec("anime") {
+//         packageName = "sobaya.app.blue.repository"
+//
+//         val apiSourceDir = "${layout.buildDirectory.asFile.get()}/generated/moko-network/$name/src/main/kotlin/${packageName!!.replace(".", "/")}/apis"
+//
+//         inputSpec = file("src/commonMain/api-docs.json")
+//
+//         configureTask {
+//             validateSpec = false
+//             doLast {
+//                 delete(file(apiSourceDir))
+//             }
+//         }
+//     }
+// }

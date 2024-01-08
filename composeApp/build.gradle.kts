@@ -42,8 +42,12 @@ android {
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
-    sourceSets["main"].java.srcDir("build/generated/ksp/main/kotlin/")
+
+    applicationVariants.forEach { variant ->
+        variant.sourceSets.forEach { sourceSet ->
+            sourceSet.kotlinDirectories += file("build/generated/ksp/${variant.name}/kotlin")
+        }
+    }
 
     defaultConfig {
         applicationId = "sobaya.app.blue"
@@ -68,9 +72,11 @@ android {
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
+        implementation(projects.repository)
         implementation(libs.koin.android)
         implementation(libs.koin.core)
         implementation(libs.koin.annotations)
+        implementation(libs.koin.compose)
         ksp(libs.koin.ksp)
     }
 }
